@@ -6833,7 +6833,7 @@ alexRightContext IBOX(sc) user__ _ _ input__ =
         -- match when checking the right context, just
         -- the first match will do.
 #endif
-{-# LINE 49 "Lexer.x" #-}
+{-# LINE 52 "Lexer.x" #-}
 data Token
   = TokenId String
   | TokenNum Int

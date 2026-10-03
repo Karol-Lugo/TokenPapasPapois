@@ -107,9 +107,6 @@ bigStep env (Not e) = BooleanV . not <$> (exige env e >>= aBool)
 bigStep env (If c t e) = exige env c >>= aBool >>= bigStep env . elige t e
 bigStep env (App f a) = exige env f >>= aplica env a
 
--- Auxiliares --------------------------------------------------------------
-
--- Evalua una expresion y exige su valor (punto estricto).
 exige :: Env -> ASA -> Maybe Value
 exige env e = bigStep env e >>= strict
 
@@ -128,8 +125,6 @@ elige :: ASA -> ASA -> Bool -> ASA
 elige t _ True = t
 elige _ e False = e
 
--- El argumento se liga sin evaluar junto con el ambiente de la llamada; el
--- cuerpo se evalua en el ambiente de definicion de la cerradura.
 aplica :: Env -> ASA -> Value -> Maybe Value
 aplica env a (ClosureV p cuerpo envF) = bigStep ((p, ExprV a env) : envF) cuerpo
 aplica _ _ _ = Nothing
