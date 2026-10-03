@@ -107,6 +107,7 @@ bigStep env (Not e) = BooleanV . not <$> (exige env e >>= aBool)
 bigStep env (If c t e) = exige env c >>= aBool >>= bigStep env . elige t e
 bigStep env (App f a) = exige env f >>= aplica env a
 
+-- Funciones auxiliares:
 exige :: Env -> ASA -> Maybe Value
 exige env e = bigStep env e >>= strict
 
